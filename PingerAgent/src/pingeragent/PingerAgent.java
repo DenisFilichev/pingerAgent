@@ -11,11 +11,13 @@ package pingeragent;
  */
 public class PingerAgent {
 
-    /**
-     * @param args the command line arguments
-     */
+    public static MainForm mainform = new MainForm();
+    public static PingerAgent agentmain = new PingerAgent();
+    public static SocketAgent socketagent;
+    
     public static void main(String[] args) {
-        new SocketAgent().runSocket();
+        socketagent = new SocketAgent();
+        socketagent.runSocket();
     }
     
 }

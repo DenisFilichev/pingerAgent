@@ -13,6 +13,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static pingeragent.PingerAgent.mainform;
 
 /**
  *
@@ -23,13 +24,18 @@ public class SocketAgent {
     
     ObjectOutputStream oos;
     ObjectInputStream ois;
+    Settings set = new Settings();
+    
     
     public void runSocket (){
-        try (Socket socket = new Socket("85.21.168.185", 7000);
+        String server = set.getServer();
+        Integer port = Integer.parseInt(set.getPort());
+        
+        try (Socket socket = new Socket(server, port);
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream()))
         {
-            
+            mainform.setText("Socket up");
             this.oos = oos;
             this.ois = ois;
             //System.out.println("Socket сервера создан");
@@ -52,7 +58,8 @@ public class SocketAgent {
                 inputStream.close();
             }
         } catch (IOException ex) {
-            System.out.println("Not link server");
+            mainform.setText("Not link server");
+            //System.out.println("Not link server");
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException ex1) {}
