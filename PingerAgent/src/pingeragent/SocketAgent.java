@@ -50,11 +50,13 @@ public class SocketAgent {
                     oos.writeObject(values);
                     oos.flush();
                 }*/
-                oos.writeObject("END");
+                
                 while ((values = inputStream.readLine()) != null) {// reading output stream of the command
                     oos.writeObject(values);
-                    oos.flush();
+                    
                 }
+                oos.writeObject("END");
+                oos.flush();
                 inputStream.close();
             }
         } catch (IOException ex) {
